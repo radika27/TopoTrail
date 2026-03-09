@@ -59,15 +59,20 @@ layers.js   → addLayer, processFile (memanggil semua yang di atas)
 
 ---
 
-## 🌐 Akses Aplikasi
+## 🌐 Live Demo
 
-Aplikasi dapat diakses langsung melalui tautan berikut:
-👉 https://radika27.github.io/TopoTrail/
+| Link Akses | Status |
+| :--- | :--- |
+| [**Buka Aplikasi TopoTrail**](https://radika27.github.io/TopoTrail/) | ![Live](https://img.shields.io/badge/Status-Live-brightgreen) |
+
+> [!TIP]
+> **Cara Cepat:** Setelah masuk ke website, klik tombol **"Gunung Lawu"** di panel kiri untuk melihat simulasi analisis jalur secara otomatis.
+
 ---
 ## 📖 Panduan Penggunaan Detail
 
 Aplikasi ini dirancang untuk memberikan analisis mendalam terhadap jalur pendakian. Berikut adalah langkah-langkah penggunaannya:
-![Preview TopoTrail](img.png)
+![Preview TopoTrail](images.png)
 
 1. Menggunakan Data Demo
 Jika kamu baru pertama kali mencoba dan tidak memiliki file koordinat, gunakan fitur Demo:
