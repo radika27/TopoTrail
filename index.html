@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TopoTrail — Analisis Terrain</title>
+
+<!-- =====================================================
+     EXTERNAL LIBRARIES
+     ===================================================== -->
+<!-- Leaflet: peta interaktif -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<!-- Chart.js: grafik statistik -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<!-- shpjs: baca file Shapefile -->
+<script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- =====================================================
+     LOCAL CSS
+     ===================================================== -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+<header>
+        <div class="hbrand">
+        <div class="hlogo">
+          <img src="img/logo.png" alt="TopoTrail Logo">
+        </div>
+
+        <div class="htext">
+          <div class="htitle">TopoTrail</div>
+          <div class="hsub">Analisis Jalur Pendakian</div>
+        </div>
+  </div>
+  <div class="hright">
+    <div class="author-divider"></div>
+    <div class="author-card">
+      <div class="author-avatar">👤</div>
+      <div class="author-info">
+        <div class="author-name">Radhyka Galih Pranata</div>
+        <div class="author-links">
+          <a class="author-link" href="https://www.linkedin.com/in/radhyka-galih-pranata-b78249209" target="_blank">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a class="author-link" href="https://instagram.com/radikaaa3" target="_blank">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            @radikaaa3
+          </a>
+          <a class="author-link" href="https://github.com/radika27" target="_blank">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- =====================================================
+     SIDEBAR KIRI
+     ===================================================== -->
+<div class="sidebar">
+
+  <!-- Import Data -->
+  <div class="sec">
+    <div class="sech">Import Data</div>
+    <div class="upzone" id="upzone" onclick="document.getElementById('fi').click()">
+      <div class="upico">📁</div>
+      <div class="uptxt"><strong>Klik atau Seret File</strong>SHP · KML · GeoJSON · GPX</div>
+      <div class="badges">
+        <span class="badge bs">SHP</span>
+        <span class="badge bk">KML</span>
+        <span class="badge bj">GeoJSON</span>
+        <span class="badge bg2">GPX</span>
+      </div>
+    </div>
+    <input type="file" id="fi" accept=".shp,.kml,.geojson,.json,.gpx,.zip" multiple>
+  </div>
+
+  <!-- Daftar Layer -->
+  <div class="sec">
+    <div class="sech">Layers</div>
+    <div class="layers" id="layerList">
+      <div class="empty" style="padding:10px;">
+        <div class="eico" style="font-size:18px;">🗂</div>
+        <div class="etxt">Belum ada layer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Basemap Selector -->
+  <div class="sec">
+    <div class="sech">Basemap</div>
+    <div class="bmrow">
+      <button class="bmbtn active" onclick="setBM('osm',this)">OSM</button>
+      <button class="bmbtn" onclick="setBM('sat',this)">Satelit</button>
+      <button class="bmbtn" onclick="setBM('topo',this)">Topo</button>
+    </div>
+  </div>
+
+  <!-- Statistik Jalur -->
+  <div class="sec">
+    <div class="sech">Statistik Jalur</div>
+    <div class="sgrid">
+      <div class="sc hl">    <div class="slbl">Jarak</div>      <div class="sval" id="sDist">—<span class="sunit">km</span></div></div>
+      <div class="sc info">  <div class="slbl">Elev Maks</div>  <div class="sval" id="sEMax">—<span class="sunit">m</span></div></div>
+      <div class="sc">       <div class="slbl">Elev Min</div>   <div class="sval" id="sEMin">—<span class="sunit">m</span></div></div>
+      <div class="sc warn">  <div class="slbl">Beda Tinggi</div><div class="sval" id="sDelta">—<span class="sunit">m</span></div></div>
+      <div class="sc danger"><div class="slbl">Lereng Maks</div><div class="sval" id="sSlopeMax">—<span class="sunit">°</span></div></div>
+      <div class="sc">       <div class="slbl">Lereng Avg</div> <div class="sval" id="sSlopeAvg">—<span class="sunit">°</span></div></div>
+      <div class="sc hl">    <div class="slbl">Total Naik</div> <div class="sval" id="sGain">—<span class="sunit">m</span></div></div>
+      <div class="sc">       <div class="slbl">Total Turun</div><div class="sval" id="sLoss">—<span class="sunit">m</span></div></div>
+    </div>
+    <div class="difbar">
+      <div class="difrow"><span>Tingkat Kesulitan</span><span id="difLbl" style="font-family:'Rajdhani',sans-serif;font-weight:700;">—</span></div>
+      <div class="diftrack"><div class="diffill" id="difFill" style="width:0%;background:var(--accent);"></div></div>
+    </div>
+  </div>
+
+  <!-- Legenda Lereng -->
+  <div class="sec">
+    <div class="sech">Legenda Lereng</div>
+    <div class="sleg">
+      <div class="sli"><div class="slsw" style="background:#44ff88;"></div><span>0–5°</span>  <span class="slde"> — Datar</span></div>
+      <div class="sli"><div class="slsw" style="background:#ffd740;"></div><span>5–15°</span> <span class="slde"> — Landai</span></div>
+      <div class="sli"><div class="slsw" style="background:#ff8c00;"></div><span>15–25°</span><span class="slde"> — Agak Curam</span></div>
+      <div class="sli"><div class="slsw" style="background:#ff6b35;"></div><span>25–45°</span><span class="slde"> — Curam</span></div>
+      <div class="sli"><div class="slsw" style="background:#ff2c2c;"></div><span>45–60°</span><span class="slde"> — Sangat Curam</span></div>
+      <div class="sli"><div class="slsw" style="background:#b400ff;"></div><span>&gt;60°</span>  <span class="slde"> — Vertikal</span></div>
+    </div>
+  </div>
+
+  <!-- Data Demo -->
+  <div class="sec">
+    <div class="sech">Data Demo</div>
+    <button class="demobtn" onclick="loadDemo('lawu')">🏔 <span>Gunung Lawu — Candi Cetho</span></button>
+    <button class="demobtn" onclick="loadDemo('sumbing')">⛰ <span>Gunung Sumbing — Banaran</span></button>
+    <div style="margin-top:8px;display:flex;align-items:center;gap:5px;padding:5px 6px;background:var(--card);border:1px solid var(--border);border-radius:5px;">
+      <span style="font-size:9px;color:var(--txtm);font-family:'Space Mono',monospace;">Sumber data:</span>
+      <a href="https://www.wikiloc.com/" target="_blank"
+         style="display:flex;align-items:center;gap:4px;text-decoration:none;font-family:'Space Mono',monospace;font-size:8px;color:var(--accent);border:1px solid rgba(95,255,160,.2);border-radius:3px;padding:1px 6px;background:rgba(95,255,160,.05);transition:.2s;"
+         onmouseover="this.style.background='rgba(95,255,160,.12)'" onmouseout="this.style.background='rgba(95,255,160,.05)'">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        wikiloc.com
+      </a>
+    </div>
+  </div>
+
+</div><!-- /sidebar -->
+
+<!-- =====================================================
+     AREA PETA + PROFIL ELEVASI
+     ===================================================== -->
+<div class="maparea" id="maparea">
+
+  <!-- Peta utama -->
+  <div id="map" style="flex:1;"></div>
+
+  <!-- Kontrol peta (zoom, fit, ukur) -->
+  <div class="mctrl">
+    <button class="cbtn" onclick="map.zoomIn()">+</button>
+    <button class="cbtn" onclick="map.zoomOut()">−</button>
+    <button class="cbtn" onclick="fitAll()" title="Fit semua layer">⊞</button>
+    <button class="cbtn" id="btnM" onclick="toggleMeasure()" title="Ukur Jarak">📏</button>
+  </div>
+
+  <!-- Koordinat kursor -->
+  <div class="coords" id="coords">
+    📍 <span id="cLat">0.000000</span>°, <span id="cLng">0.000000</span>°
+    &nbsp;|&nbsp; Z:<span class="cz" id="cZ">8</span>
+  </div>
+
+  <!-- Loading overlay -->
+  <div class="loading" id="loading">
+    <div class="ring"></div>
+    <div class="ltxt">MEMPROSES...</div>
+  </div>
+
+  <!-- Strip Profil Elevasi -->
+  <div class="estrip" id="estrip">
+    <div class="shead" onclick="toggleStrip()">
+      <div class="stitle">
+        <span style="font-size:14px;">📈</span>
+        <span>PROFIL ELEVASI &amp; LERENG</span>
+      </div>
+      <div class="smeta" id="stripMeta" style="display:none;">
+        <span>Jarak <span class="mv" id="smD">—</span><span class="mu"> km</span></span>
+        <span>↑<span class="mv" id="smG">—</span><span class="mu">m</span> ↓<span class="mv" id="smL">—</span><span class="mu">m</span></span>
+        <span>⏱<span class="mv" id="smT">—</span><span class="mu">h</span></span>
+        <span style="color:var(--accent4);">Hover untuk detail</span>
+      </div>
+      <button class="stog" id="stog">▼</button>
+    </div>
+    <div class="sbody" id="sbody">
+      <div class="empty" id="sempE">
+        <div class="eico">📈</div>
+        <div class="etxt">Upload atau pilih data demo untuk melihat<br>profil elevasi &amp; kemiringan lereng interaktif</div>
+      </div>
+      <canvas id="pCanvas" style="display:none;"></canvas>
+    </div>
+  </div>
+
+  <!-- Canvas tooltip -->
+  <div class="ctip" id="ctip">
+    <div class="ctrow"><span class="ctlbl">Jarak</span>  <span class="ctval" id="ctD" style="color:var(--accent);">—</span></div>
+    <div class="ctrow"><span class="ctlbl">Elevasi</span><span class="ctval" id="ctE" style="color:var(--accent2);">—</span></div>
+    <div class="ctrow"><span class="ctlbl">Lereng</span> <span class="ctval" id="ctS" style="color:var(--accent4);">—</span></div>
+    <div class="ctrow"><span class="ctlbl">Kelas</span>  <span class="ctval" id="ctC">—</span></div>
+  </div>
+
+</div><!-- /maparea -->
+
+<!-- =====================================================
+     PANEL KANAN
+     ===================================================== -->
+<div class="rpanel">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('slope',this)">Lereng</button>
+    <button class="tab" onclick="switchTab('dist',this)">Distribusi</button>
+    <button class="tab" onclick="switchTab('wp',this)">Pos</button>
+    <button class="tab" onclick="switchTab('an',this)">Analisis</button>
+  </div>
+
+  <!-- Tab: Lereng -->
+  <div class="tc active" id="tab-slope">
+    <div id="slE" class="empty"><div class="eico">📐</div><div class="etxt">Upload jalur untuk analisis kemiringan lereng</div></div>
+    <div id="slC" style="display:none;">
+      <div class="tig">
+        <div class="ti"><div class="tiico">⏱</div><div class="tival" id="tiT">—</div><div class="tilbl">Jam</div></div>
+        <div class="ti"><div class="tiico">📍</div><div class="tival" id="tiP">—</div><div class="tilbl">Titik</div></div>
+        <div class="ti"><div class="tiico">📐</div><div class="tival" id="tiA">—°</div><div class="tilbl">Avg Lereng</div></div>
+        <div class="ti"><div class="tiico">⬆</div><div class="tival" id="tiG">—</div><div class="tilbl">Naik m</div></div>
+        <div class="ti"><div class="tiico">⬇</div><div class="tival" id="tiL">—</div><div class="tilbl">Turun m</div></div>
+        <div class="ti"><div class="tiico">🏔</div><div class="tival" id="tiM">—</div><div class="tilbl">Puncak m</div></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="stbl">
+          <thead><tr><th>#</th><th>Jarak m</th><th>ΔElev m</th><th>Lereng</th><th>Kelas</th></tr></thead>
+          <tbody id="stbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Distribusi -->
+  <div class="tc" id="tab-dist">
+    <div id="diE" class="empty"><div class="eico">📊</div><div class="etxt">Upload jalur untuk distribusi data</div></div>
+    <div id="diC" style="display:none;">
+      <div class="cc"><div class="ct">Distribusi Elevasi</div><div class="cw"><canvas id="hElev"></canvas></div></div>
+      <div class="cc"><div class="ct">Distribusi Kelas Lereng</div><div class="cw"><canvas id="sPie"></canvas></div></div>
+      <div class="cc"><div class="ct">Gain/Loss Kumulatif</div><div class="cw"><canvas id="gChart"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- Tab: Waypoint / Pos -->
+  <div class="tc" id="tab-wp">
+    <div id="wpE" class="empty"><div class="eico">📍</div><div class="etxt">Tidak ada waypoint pada data ini</div></div>
+    <div id="wpC" style="display:none;"><div class="wplist" id="wpList"></div></div>
+  </div>
+
+  <!-- Tab: Analisis Ilmiah -->
+  <div class="tc" id="tab-an">
+    <div id="anE" class="empty"><div class="eico">🔬</div><div class="etxt">Upload jalur untuk analisis<br>berbasis jurnal ilmiah</div></div>
+    <div id="anC" style="display:none;"></div>
+  </div>
+
+</div><!-- /rpanel -->
+
+</div><!-- /layout -->
+
+<!-- Toast notifikasi -->
+<div class="notif" id="notif"></div>
+
+<!-- =====================================================
+     LOCAL JAVASCRIPT
+     Urutan penting: config → map → layers → dst
+     ===================================================== -->
+<script src="js/config.js"></script>   <!-- Konstanta & data demo -->
+<script src="js/utils.js"></script>    <!-- notify, showLoad, measure tool -->
+<script src="js/map.js"></script>      <!-- Inisialisasi Leaflet map -->
+<script src="js/parsers.js"></script>  <!-- KML & GPX parser -->
+<script src="js/analysis.js"></script> <!-- Komputasi terrain (haversine, lereng, dll) -->
+<script src="js/charts.js"></script>   <!-- Chart.js grafik -->
+<script src="js/profile.js"></script>  <!-- Canvas profil elevasi -->
+<script src="js/panels.js"></script>   <!-- Panel kanan: lereng, WP, analisis -->
+<script src="js/layers.js"></script>   <!-- Manajemen layer (upload, add, remove) -->
+</script>
+
+</body>
+</html>

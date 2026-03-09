@@ -1,0 +1,476 @@
+/* =====================================================
+   TOPOTRAIL — style.css
+   Seluruh tampilan visual aplikasi WebGIS
+   ===================================================== */
+
+/* ---- CSS Variables (Tema Warna) ---- */
+:root{
+  --bg:#0b1210;
+  --panel:#101c16;
+  --card:#142019;
+  --card2:#192a20;
+  --border:#243530;
+  --borderl:#36524a;
+  --accent:#5fffa0;
+  --accent2:#00d4ff;
+  --accent3:#ff7043;
+  --accent4:#ffd740;
+  --txt:#c8e0cc;
+  --txtm:#6a9070;
+  --txtb:#eaf5ec;
+  --danger:#ff4444;
+  --warn:#ffaa00;
+  --ok:#44ff88;
+  --sh:0 8px 32px rgba(0,0,0,0.6);
+}
+
+/* ---- Reset & Base ---- */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+header{
+  background:linear-gradient(90deg,#081510,#0f2018,#081510);
+  border-bottom:1px solid var(--border);
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  flex-shrink:0;
+  position:relative;
+  z-index:100;
+}
+header::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(95,255,160,.4),transparent);
+}
+.hbrand{display:flex;align-items:center;gap:10px;}
+.hlogo{
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hlogo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.htitle{
+  font-family:'Rajdhani',sans-serif;
+  font-size:19px;font-weight:700;
+  letter-spacing:2px;color:var(--txtb);
+}
+.hsub{
+  font-family:'Space Mono',monospace;
+  font-size:8px;color:var(--accent);
+  letter-spacing:3px;text-transform:uppercase;
+}
+.htext{
+  display:flex;
+  flex-direction:column;
+  line-height:1.1;
+  align-items:flex-start;
+}
+.hright{display:flex;align-items:center;gap:10px;}
+.author-card{display:flex;align-items:center;gap:9px;}
+.author-avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;
+  border:1.5px solid rgba(95,255,160,.3);
+}
+.author-info{display:flex;flex-direction:column;gap:1px;}
+.author-name{
+  font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;
+  color:var(--txtb);letter-spacing:.5px;
+}
+.author-links{display:flex;align-items:center;gap:6px;}
+.author-link{
+  font-family:'Space Mono',monospace;font-size:7.5px;color:var(--txtm);
+  text-decoration:none;display:flex;align-items:center;gap:3px;
+  padding:1px 5px;border:1px solid var(--border);border-radius:3px;transition:.2s;
+}
+.author-link:hover{color:var(--accent);border-color:var(--accent);background:rgba(95,255,160,.06);}
+.author-divider{width:1px;height:22px;background:var(--border);}
+.hpill{
+  font-family:'Space Mono',monospace;font-size:9px;
+  padding:3px 9px;border-radius:20px;border:1px solid var(--borderl);color:var(--txtm);
+}
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 8px var(--accent);
+  animation:blink 2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* =====================================================
+   LAYOUT
+   ===================================================== */
+.layout{display:flex;flex:1;overflow:hidden;}
+
+/* =====================================================
+   SIDEBAR (KIRI)
+   ===================================================== */
+.sidebar{
+  width:270px;background:var(--panel);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow-y:auto;flex-shrink:0;
+}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--borderl);border-radius:2px;}
+.sec{padding:13px;border-bottom:1px solid var(--border);}
+.sech{
+  font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:3px;color:var(--accent);text-transform:uppercase;
+  margin-bottom:9px;display:flex;align-items:center;gap:6px;
+}
+.sech::before{content:'';width:3px;height:11px;background:var(--accent);border-radius:2px;}
+
+/* ---- Upload Zone ---- */
+.upzone{
+  border:2px dashed var(--borderl);border-radius:8px;padding:14px;
+  text-align:center;cursor:pointer;transition:.3s;background:var(--card);
+}
+.upzone:hover,.upzone.drag{border-color:var(--accent);background:rgba(95,255,160,.04);}
+.upico{font-size:24px;margin-bottom:5px;}
+.uptxt{font-size:11px;color:var(--txtm);line-height:1.5;}
+.uptxt strong{color:var(--accent);display:block;font-size:12px;margin-bottom:2px;}
+.badges{display:flex;gap:4px;justify-content:center;margin-top:7px;flex-wrap:wrap;}
+.badge{font-family:'Space Mono',monospace;font-size:8px;padding:2px 6px;border-radius:3px;font-weight:700;letter-spacing:1px;}
+.bs{background:rgba(95,255,160,.15);color:var(--accent);border:1px solid rgba(95,255,160,.3);}
+.bk{background:rgba(0,212,255,.15);color:var(--accent2);border:1px solid rgba(0,212,255,.3);}
+.bj{background:rgba(255,112,67,.15);color:var(--accent3);border:1px solid rgba(255,112,67,.3);}
+.bg2{background:rgba(255,215,64,.15);color:var(--accent4);border:1px solid rgba(255,215,64,.3);}
+#fi{display:none;}
+
+/* ---- Layer List ---- */
+.layers{display:flex;flex-direction:column;gap:5px;max-height:170px;overflow-y:auto;}
+.litem{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:6px;padding:7px 9px;
+  display:flex;align-items:center;gap:7px;cursor:pointer;transition:.2s;
+}
+.litem:hover{border-color:var(--borderl);}
+.litem.active{border-color:var(--accent);}
+.lcolor{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.lname{font-size:11px;color:var(--txtb);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ltype{font-family:'Space Mono',monospace;font-size:8px;color:var(--txtm);}
+.lrm{
+  width:17px;height:17px;border:none;
+  background:rgba(255,68,68,.1);color:var(--danger);
+  border-radius:3px;cursor:pointer;font-size:10px;
+  display:flex;align-items:center;justify-content:center;transition:.2s;
+}
+.lrm:hover{background:rgba(255,68,68,.3);}
+
+/* ---- Statistik ---- */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.sc{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:7px;padding:8px;transition:.2s;
+}
+.sc:hover{border-color:var(--borderl);}
+.slbl{font-size:8px;color:var(--txtm);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;font-family:'Space Mono',monospace;}
+.sval{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--txtb);line-height:1;}
+.sunit{font-size:10px;color:var(--txtm);margin-left:2px;}
+.sc.hl .sval{color:var(--accent);}
+.sc.info .sval{color:var(--accent2);}
+.sc.warn .sval{color:var(--accent4);}
+.sc.danger .sval{color:var(--danger);}
+.difbar{margin-top:10px;}
+.difrow{display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;}
+.diftrack{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--border);}
+.diffill{height:100%;border-radius:3px;transition:width .8s ease;}
+
+/* ---- Basemap Buttons ---- */
+.bmrow{display:flex;gap:5px;flex-wrap:wrap;}
+.bmbtn{
+  flex:1;min-width:50px;padding:5px 3px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:5px;color:var(--txtm);font-size:9px;
+  cursor:pointer;text-align:center;transition:.2s;
+  font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:1px;
+}
+.bmbtn:hover{border-color:var(--borderl);color:var(--txt);}
+.bmbtn.active{border-color:var(--accent2);color:var(--accent2);background:rgba(0,212,255,.1);}
+
+/* ---- Legenda Lereng ---- */
+.sleg{display:flex;flex-direction:column;gap:4px;}
+.sli{display:flex;align-items:center;gap:7px;font-size:10px;}
+.slsw{width:14px;height:7px;border-radius:2px;flex-shrink:0;}
+.slde{color:var(--txtm);}
+
+/* ---- Demo Buttons ---- */
+.demobtn{
+  width:100%;padding:7px 10px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:6px;color:var(--txt);
+  font-family:'Outfit',sans-serif;font-size:11px;
+  cursor:pointer;text-align:left;transition:.2s;
+  margin-bottom:4px;display:flex;align-items:center;gap:7px;
+}
+.demobtn:hover{border-color:var(--borderl);color:var(--txtb);}
+
+/* =====================================================
+   MAP AREA (TENGAH)
+   ===================================================== */
+.maparea{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative;}
+#map{flex:1;min-height:0;}
+
+/* ---- Elevation Strip ---- */
+.estrip{
+  height:340px;background:var(--panel);
+  border-top:1px solid var(--border);
+  display:flex;flex-direction:column;
+  flex-shrink:0;transition:height .3s ease;
+}
+.estrip.collapsed{height:38px;}
+.shead{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;height:38px;flex-shrink:0;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;user-select:none;position:relative;
+}
+.shead::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(95,255,160,.2),transparent);
+}
+.stitle{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;
+}
+.smeta{display:flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:9px;color:var(--txtm);}
+.smeta .mv{color:var(--txtb);font-weight:700;}
+.smeta .mu{color:var(--txtm);}
+.stog{
+  width:24px;height:24px;border:1px solid var(--border);
+  border-radius:4px;background:var(--card);color:var(--txtm);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:11px;transition:.2s;flex-shrink:0;
+}
+.stog:hover{border-color:var(--borderl);color:var(--txt);}
+.sbody{flex:1;position:relative;overflow:hidden;}
+#pCanvas{width:100%;height:100%;display:block;cursor:crosshair;}
+#pCanvas:active{cursor:zoom-in;}
+
+/* ---- Canvas Tooltip ---- */
+.ctip{
+  position:absolute;
+  background:rgba(18,30,22,.96);border:1px solid var(--borderl);
+  border-radius:7px;padding:8px 12px;
+  font-family:'Space Mono',monospace;font-size:9px;color:var(--txtb);
+  pointer-events:none;display:none;z-index:50;
+  white-space:nowrap;box-shadow:var(--sh);min-width:140px;
+}
+.ctrow{display:flex;justify-content:space-between;gap:14px;margin-bottom:3px;}
+.ctlbl{color:var(--txtm);}
+.ctval{font-weight:700;}
+
+/* ---- Map Controls ---- */
+.mctrl{position:absolute;top:14px;right:14px;z-index:500;display:flex;flex-direction:column;gap:5px;}
+.cbtn{
+  width:34px;height:34px;
+  background:rgba(16,28,22,.9);border:1px solid var(--border);
+  color:var(--txt);border-radius:6px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;transition:.2s;
+  backdrop-filter:blur(8px);box-shadow:var(--sh);
+}
+.cbtn:hover{border-color:var(--accent);color:var(--accent);}
+.cbtn.active{border-color:var(--accent);color:var(--accent);background:rgba(95,255,160,.1);}
+.coords{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  background:rgba(11,18,16,.88);border:1px solid var(--border);
+  border-radius:5px;padding:5px 14px;
+  font-family:'Space Mono',monospace;font-size:9px;color:var(--txtm);
+  z-index:500;backdrop-filter:blur(8px);white-space:nowrap;box-shadow:var(--sh);
+}
+.coords span{color:var(--accent);}
+.coords .cz{color:var(--accent4);}
+
+/* =====================================================
+   RIGHT PANEL
+   ===================================================== */
+.rpanel{
+  width:315px;background:var(--panel);
+  border-left:1px solid var(--border);
+  display:flex;flex-direction:column;
+  flex-shrink:0;overflow:hidden;
+}
+.tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;}
+.tab{
+  flex:1;padding:11px 4px;
+  font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--txtm);
+  cursor:pointer;border:none;background:none;transition:.2s;
+  border-bottom:2px solid transparent;position:relative;bottom:-1px;
+}
+.tab:hover{color:var(--txt);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tc{display:none;flex:1;overflow-y:auto;padding:14px;}
+.tc.active{display:block;}
+.tc::-webkit-scrollbar{width:3px;}
+.tc::-webkit-scrollbar-thumb{background:var(--borderl);}
+
+/* ---- Chart Cards ---- */
+.cc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px;margin-bottom:10px;}
+.ct{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;}
+.cw{height:130px;position:relative;}
+
+/* ---- Slope Tab Info Grid ---- */
+.tig{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:9px;}
+.ti{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 5px;text-align:center;}
+.tiico{font-size:16px;margin-bottom:3px;}
+.tival{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--txtb);}
+.tilbl{font-size:8px;color:var(--txtm);font-family:'Space Mono',monospace;text-transform:uppercase;}
+
+/* ---- Slope Table ---- */
+.stbl{width:100%;border-collapse:collapse;font-size:10px;}
+.stbl th{
+  background:var(--bg);color:var(--txtm);
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;
+  text-transform:uppercase;padding:5px 7px;text-align:left;
+  border-bottom:1px solid var(--border);
+}
+.stbl td{padding:5px 7px;border-bottom:1px solid rgba(36,53,48,.5);color:var(--txt);}
+.stbl tr.srow{cursor:pointer;transition:background .15s;}
+.stbl tr.srow:hover td{background:rgba(95,255,160,.06);}
+.stbl tr.srow:active td{background:rgba(95,255,160,.12);}
+.stbl tr.srow td:first-child::before{content:'📍';font-size:8px;margin-right:3px;opacity:0;transition:opacity .15s;}
+.stbl tr.srow:hover td:first-child::before{opacity:1;}
+
+/* ---- Slope Class Chips ---- */
+.chip{display:inline-block;padding:2px 6px;border-radius:3px;font-size:8px;font-family:'Space Mono',monospace;font-weight:700;}
+.cd{background:rgba(68,255,136,.15);color:#44ff88;}
+.cl{background:rgba(255,215,64,.15);color:#ffd740;}
+.ca{background:rgba(255,140,0,.15);color:#ff8c00;}
+.cc2{background:rgba(255,107,53,.15);color:#ff6b35;}
+.cs{background:rgba(255,44,44,.15);color:#ff2c2c;}
+.cv{background:rgba(180,0,255,.15);color:#b400ff;}
+
+/* ---- Waypoint List ---- */
+.wplist{display:flex;flex-direction:column;gap:4px;}
+.wpi{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:6px;padding:8px 10px;
+  display:flex;align-items:flex-start;gap:9px;
+  cursor:pointer;transition:.2s;
+}
+.wpi:hover{border-color:var(--accent);background:var(--card2);}
+.wpi:hover .wpidx{transform:scale(1.1);}
+.wpidx{
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:8px;font-weight:700;
+  color:#000;flex-shrink:0;margin-top:1px;transition:transform .2s;
+}
+.wpnm{font-size:11px;color:var(--txtb);margin-bottom:1px;}
+.wpco{font-family:'Space Mono',monospace;font-size:8px;color:var(--txtm);}
+.wpel{font-size:10px;color:var(--accent4);}
+
+/* ---- Analysis Cards ---- */
+.risk{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:6px;padding:7px 9px;
+  display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;
+}
+.rlvl{font-family:'Space Mono',monospace;font-size:8px;padding:2px 5px;border-radius:3px;flex-shrink:0;margin-top:1px;font-weight:700;}
+.rnm{font-size:11px;color:var(--txtb);font-weight:600;margin-bottom:1px;}
+.rdesc{font-size:9px;color:var(--txtm);}
+.recs{display:flex;flex-direction:column;gap:3px;}
+.rec{display:flex;gap:6px;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--border);font-size:10px;color:var(--txt);}
+
+/* ---- Journal Cards ---- */
+.jcard{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 11px;margin-bottom:8px;}
+.jcard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.jcard-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;}
+.jcard-src{font-family:'Space Mono',monospace;font-size:7px;color:var(--txtm);border:1px solid var(--border);border-radius:3px;padding:1px 5px;}
+.jmeter-wrap{display:flex;flex-direction:column;gap:5px;}
+.jmeter{display:flex;align-items:center;gap:8px;}
+.jmeter-lbl{font-size:9px;color:var(--txtm);width:90px;flex-shrink:0;}
+.jmeter-bar{flex:1;height:6px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--border);}
+.jmeter-fill{height:100%;border-radius:3px;transition:width .8s ease;}
+.jmeter-val{font-family:'Space Mono',monospace;font-size:8px;width:36px;text-align:right;flex-shrink:0;}
+.jgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px;}
+.jitem{background:var(--card2);border:1px solid var(--border);border-radius:5px;padding:6px 8px;}
+.jitem-lbl{font-size:8px;color:var(--txtm);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.jitem-val{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--txtb);}
+.jitem-unit{font-size:9px;color:var(--txtm);}
+.jstep{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid rgba(36,53,48,.4);font-size:10px;}
+.jstep-ico{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;}
+.jsrc-badge{font-family:'Space Mono',monospace;font-size:7px;background:rgba(95,255,160,.08);border:1px solid rgba(95,255,160,.2);color:var(--txtm);border-radius:3px;padding:1px 5px;margin-left:4px;}
+
+/* ---- Empty States ---- */
+.empty{text-align:center;padding:22px 12px;color:var(--txtm);}
+.eico{font-size:28px;margin-bottom:7px;}
+.etxt{font-size:11px;line-height:1.6;}
+
+/* =====================================================
+   GLOBAL UI COMPONENTS
+   ===================================================== */
+
+/* ---- Notifikasi Toast ---- */
+.notif{
+  position:fixed;bottom:20px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--card2);border:1px solid var(--borderl);
+  border-radius:7px;padding:8px 18px;
+  font-size:11px;color:var(--txtb);
+  z-index:9999;transition:transform .3s;box-shadow:var(--sh);
+}
+.notif.show{transform:translateX(-50%) translateY(0);}
+.notif.ok{border-color:var(--accent);}
+.notif.err{border-color:var(--danger);}
+
+/* ---- Loading Overlay ---- */
+.loading{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:rgba(11,18,16,.8);
+  display:none;align-items:center;justify-content:center;
+  z-index:9000;flex-direction:column;gap:12px;
+  backdrop-filter:blur(4px);
+}
+.loading.on{display:flex;}
+.ring{
+  width:44px;height:44px;
+  border:3px solid var(--border);border-top-color:var(--accent);
+  border-radius:50%;animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ltxt{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;}
+
+/* ---- Leaflet Overrides ---- */
+.leaflet-control-zoom{display:none!important;}
+.leaflet-popup-content-wrapper{
+  background:var(--card2)!important;
+  border:1px solid var(--border)!important;
+  border-radius:8px!important;
+  box-shadow:var(--sh)!important;
+  color:var(--txt)!important;
+}
+.leaflet-popup-tip{background:var(--card2)!important;}
+.leaflet-popup-close-button{color:var(--txtm)!important;}
+
+/* ---- Responsive ---- */
+@media(max-width:1100px){.rpanel{width:260px;}}
+@media(max-width:860px){.rpanel{display:none;}.sidebar{width:220px;}}
