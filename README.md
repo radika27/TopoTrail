@@ -59,37 +59,27 @@ layers.js   → addLayer, processFile (memanggil semua yang di atas)
 
 ---
 
-## ⚙️ Cara Pakai
+##🌐 Akses Aplikasi
+Aplikasi dapat diakses langsung melalui tautan berikut:
+👉 https://radika27.github.io/TopoTrail/
 
-1. Buka `index.html` di browser (Chrome/Firefox/Edge)
-2. Klik salah satu **Data Demo** (Lawu atau Sumbing) untuk langsung melihat
-3. Atau drag & drop / upload file jalur sendiri
+##📖 Panduan Penggunaan Detail
+Aplikasi ini dirancang untuk memberikan analisis mendalam terhadap jalur pendakian. Berikut adalah langkah-langkah penggunaannya:
 
-> **Catatan:** Karena menggunakan `shpjs` via CDN, butuh koneksi internet
-> saat pertama kali membuka. Untuk offline, download semua library CDN.
+1. Menggunakan Data Demo
+Jika kamu baru pertama kali mencoba dan tidak memiliki file koordinat, gunakan fitur Demo:
+Klik tombol "Gunung Lawu" atau "Gunung Sumbing" pada panel kiri.
+Peta akan otomatis melakukan zoom ke lokasi dan menampilkan profil elevasi lengkap dengan statistik kelerengan.
 
----
+2. Input Data Mandiri (KML, GPX, GeoJSON, SHP)
+Kamu bisa menganalisis jalur pendakian mana pun di dunia dengan cara:
+Metode Drag & Drop: Ambil file .kml (dari Google Earth) atau .gpx (dari Garmin/Strava) dari foldermu, lalu tarik langsung ke area peta.
+Metode Upload: Klik pada area kotak "Import Data" dan pilih file yang ingin dianalisis.
 
-## 🗂️ Panduan Edit per File
-
-### Ingin ubah warna tema?
-→ Edit variabel CSS di `css/style.css` bagian `:root { ... }`
-
-### Ingin tambah data demo gunung lain?
-→ Tambahkan entry baru di `js/config.js` dalam objek `DEMOS`
-
-### Ingin ubah klasifikasi kelas lereng?
-→ Edit fungsi `slopeClass()` di `js/analysis.js`
-
-### Ingin ubah rumus estimasi waktu?
-→ Cari `Naismith Rule` di `js/panels.js` (fungsi `buildAnalysisPanel`)
-
-### Ingin tambah grafik baru?
-→ Tambahkan fungsi baru di `js/charts.js` dan panggil dari `drawCharts()`
-
-### Ingin ubah tampilan profil elevasi?
-→ Edit `renderCanvas()` di `js/profile.js`
-
+3. Membaca Hasil Analisis
+Setelah data terinput, perhatikan panel berikut:
+Peta Utama: Menunjukkan jalur dengan titik-titik koordinat. Arahkan kursor pada jalur untuk melihat lokasi spesifik.
+Profil Elevasi (Bawah): Grafik ini menunjukkan naik-turunnya medan. Warna pada grafik mewakili kelas lereng (Hijau = Landai, Oranye = Terjal, Merah = Sangat Terjal/Bahaya).
 ---
 
 ## 📚 Referensi Jurnal yang Digunakan
