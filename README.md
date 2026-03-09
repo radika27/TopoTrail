@@ -59,11 +59,13 @@ layers.js   → addLayer, processFile (memanggil semua yang di atas)
 
 ---
 
-##🌐 Akses Aplikasi
+## 🌐 Akses Aplikasi
+
 Aplikasi dapat diakses langsung melalui tautan berikut:
 👉 https://radika27.github.io/TopoTrail/
 ---
-##📖 Panduan Penggunaan Detail
+## 📖 Panduan Penggunaan Detail
+
 Aplikasi ini dirancang untuk memberikan analisis mendalam terhadap jalur pendakian. Berikut adalah langkah-langkah penggunaannya:
 ![Preview TopoTrail](img.png)
 
